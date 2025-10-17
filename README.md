@@ -1,4 +1,5 @@
-Norwich University Football Store — Next.js 14 + Stripe + Prisma
+Norwich University Football Store 
+— Next.js 14 + Stripe + Prisma
 
 A production-style demo storefront for Norwich University Football built with Next.js 14 (App Router), TypeScript, Tailwind CSS, Prisma, and Stripe (test mode).
 It uses authentic Norwich imagery (Sabine Field / athletics photos) via whitelisted remote hosts.
@@ -155,3 +156,5 @@ Replace or host images locally if usage rights change.
 
 ✅ License
 For educational/demo use. Not affiliated with Norwich University.
+It's
+a prototype
