@@ -1,4 +1,5 @@
-Norwich University Football Store 
+Norwich University Football Store - Class project for the Alumnis 
+
 — Next.js 14 + Stripe + Prisma
 
 A production-style demo storefront for Norwich University Football built with Next.js 14 (App Router), TypeScript, Tailwind CSS, Prisma, and Stripe (test mode).
