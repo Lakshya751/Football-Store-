@@ -157,5 +157,4 @@ Replace or host images locally if usage rights change.
 
 ✅ License
 For educational/demo use. Not affiliated with Norwich University.
-It's
-a prototype
+It's a prototype. 
