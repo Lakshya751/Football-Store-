@@ -1,160 +1,314 @@
-Norwich University Football Store - Class project for the Alumnis 
+# Norwich University Football Store
 
-— Next.js 14 + Stripe + Prisma
+> **Educational Demo Project** - A class project showcasing a modern e-commerce storefront for Norwich University Football alumni.
 
-A production-style demo storefront for Norwich University Football built with Next.js 14 (App Router), TypeScript, Tailwind CSS, Prisma, and Stripe (test mode).
-It uses authentic Norwich imagery (Sabine Field / athletics photos) via whitelisted remote hosts.
+⚠️ **Disclaimer**: This is an educational demonstration and not an official Norwich University store.
 
-️This is an educational demo, not an official store.
+---
 
-✨ Features
-Next.js App Router with server components & API route handlers
-Products in SQLite (local) or Postgres (production), via Prisma
-Cart with increment/decrement, remove, totals (localStorage)
-Checkout (demo) creates a Stripe PaymentIntent and simulates confirmation
-Order confirmation page with stored line items
-Responsive UI with NU brand colors (Maroon #8B1538, Gold #FFB81C)
-Real NU visuals via next/image remote patterns
-Accessibility: keyboard-operable hero dots, focus states, reduced-motion friendly
+## 🎯 Overview
 
-Stack
-Frontend: Next.js 14 (App Router), TypeScript, Tailwind CSS
-Backend: Next.js route handlers (/app/api/*)
-Database: SQLite (local) via Prisma; switchable to Postgres for production
-Payments: Stripe (test mode)
-Images: next/image with remotePatterns (Norwich hosts whitelisted)
+A production-style demo storefront built with modern web technologies, featuring authentic Norwich University imagery and a complete shopping experience. This project demonstrates full-stack e-commerce capabilities including product management, cart functionality, and payment processing.
 
+### Tech Stack
 
-🚀 Quick Start (Local)
-Prereqs: Node 18.17+, npm 9+, Stripe test account
+- **Frontend**: Next.js 14 (App Router), TypeScript, Tailwind CSS
+- **Backend**: Next.js API Route Handlers
+- **Database**: Prisma ORM with SQLite (local) / PostgreSQL (production)
+- **Payments**: Stripe (test mode)
+- **Images**: Next.js Image Optimization with remote patterns
 
-# 1) Install deps
-npm install
+---
 
-# 2) Configure env
-cp .env.example .env
-# Open .env and paste your Stripe test secret key (sk_test_...)
+## ✨ Features
 
-# 3) Create DB and seed products
-npx prisma migrate dev --name init
-npm run seed
+- ✅ **Modern Architecture**: Next.js 14 App Router with server components
+- ✅ **Database Management**: SQLite for local development, PostgreSQL-ready for production
+- ✅ **Shopping Cart**: Full cart functionality with increment/decrement, removal, and real-time totals (localStorage)
+- ✅ **Checkout Flow**: Demo checkout with Stripe PaymentIntent creation and confirmation simulation
+- ✅ **Order Management**: Confirmation pages with stored line items
+- ✅ **Responsive Design**: Mobile-first UI with Norwich University brand colors (Maroon #8B1538, Gold #FFB81C)
+- ✅ **Optimized Images**: Real NU visuals via `next/image` with whitelisted remote patterns
+- ✅ **Accessibility**: Keyboard-navigable hero carousel, focus states, and reduced-motion support
 
-# 4) Run dev server
-npm run dev
-# Open http://localhost:3000
-Smoke test (1 minute)
-Home page loads with hero slideshow
-/shop lists products
-Add items → /cart shows totals and quantity controls
-/checkout → enter any email → Pay (Stripe test)
-You should land on /order/[id] with an order summary (demo flow)
+---
 
+## 🚀 Getting Started
 
-🌐 Deployment (Vercel)
-SQLite is great locally, but on Vercel the filesystem is ephemeral. For persistent orders, switch to Postgres (Neon or Vercel Postgres).
-A) Switch Prisma to Postgres (recommended)
-Create a Postgres DB (Neon/Vercel Postgres) and copy the connection string
-Edit prisma/schema.prisma:
+### Prerequisites
+
+- Node.js 18.17 or higher
+- npm 9 or higher
+- Stripe test account ([sign up here](https://stripe.com))
+
+### Installation
+
+1. **Clone and install dependencies**
+   ```bash
+   git clone <your-repo-url>
+   cd nu-football-nextjs
+   npm install
+   ```
+
+2. **Configure environment variables**
+   ```bash
+   cp .env.example .env
+   ```
+   
+   Open `.env` and add your Stripe test secret key:
+   ```env
+   STRIPE_SECRET_KEY=sk_test_your_key_here
+   DATABASE_URL=file:./dev.db
+   NEXT_PUBLIC_SITE_URL=http://localhost:3000
+   ```
+
+3. **Initialize database and seed products**
+   ```bash
+   npx prisma migrate dev --name init
+   npm run seed
+   ```
+
+4. **Start the development server**
+   ```bash
+   npm run dev
+   ```
+   
+   Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+### Quick Smoke Test (1 minute)
+
+1. ✅ Home page loads with hero slideshow
+2. ✅ Navigate to `/shop` to view products
+3. ✅ Add items to cart → `/cart` displays totals and quantity controls
+4. ✅ Go to `/checkout` → enter any email → click "Pay" (Stripe test mode)
+5. ✅ Confirm you land on `/order/[id]` with order summary
+
+---
+
+## 🌐 Production Deployment (Vercel)
+
+> **Note**: SQLite works locally but Vercel's filesystem is ephemeral. Switch to PostgreSQL for persistent data.
+
+### Step 1: Set Up PostgreSQL
+
+**Option A: Neon** (Recommended)
+1. Create a free database at [neon.tech](https://neon.tech)
+2. Copy the connection string
+
+**Option B: Vercel Postgres**
+1. Enable Postgres in your Vercel project settings
+2. Copy the provided connection string
+
+### Step 2: Update Prisma Schema
+
+Edit `prisma/schema.prisma`:
+```prisma
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-Set env locally in .env:
+```
+
+### Step 3: Migrate and Seed (Local → Production DB)
+
+```bash
+# Update your .env with production DATABASE_URL
 DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DB?sslmode=require"
-Migrate & seed (to your hosted DB):
+
+# Run migration
+npx prisma migrate dev --name init
+
+# Seed products
+npm run seed
+```
+
+### Step 4: Deploy to Vercel
+
+1. Push your code to GitHub
+2. Import project in Vercel dashboard
+3. Add environment variables:
+   - `STRIPE_SECRET_KEY` = `sk_test_...`
+   - `DATABASE_URL` = Your PostgreSQL connection string
+   - `NEXT_PUBLIC_SITE_URL` = `https://your-app.vercel.app`
+4. Deploy!
+
+---
+
+## 📁 Project Structure
+
+```
+nu-football-nextjs/
+├── app/
+│   ├── page.tsx                    # Home page (Hero, Legacy section)
+│   ├── shop/
+│   │   └── page.tsx               # Product grid (server component)
+│   ├── cart/
+│   │   └── page.tsx               # Shopping cart (client component)
+│   ├── checkout/
+│   │   └── page.tsx               # Demo checkout flow
+│   ├── order/
+│   │   └── [id]/page.tsx          # Order confirmation
+│   └── api/
+│       ├── checkout/
+│       │   └── route.ts           # Create Stripe PaymentIntent
+│       └── orders/
+│           └── confirm/route.ts   # Persist order to database
+├── components/
+│   ├── Hero.tsx                   # Hero carousel component
+│   └── ProductCard.tsx            # Product display card
+├── lib/
+│   ├── prisma.ts                  # Prisma client singleton
+│   ├── stripe.ts                  # Stripe client configuration
+│   ├── types.ts                   # TypeScript type definitions
+│   └── useCart.ts                 # Cart state management hook
+├── prisma/
+│   ├── schema.prisma              # Database schema
+│   └── seed.ts                    # Database seeding script
+├── public/                        # Static assets
+├── .env.example                   # Environment variable template
+├── next.config.mjs                # Next.js configuration
+├── tailwind.config.ts             # Tailwind CSS configuration
+└── package.json
+```
+
+---
+
+## 🧰 Useful Commands
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development server |
+| `npm run build` | Create production build |
+| `npm start` | Run production build |
+| `npx prisma studio` | Open database browser at http://localhost:5555 |
+| `npm run seed` | Seed products into database |
+| `npx prisma migrate dev` | Create and run database migrations |
+
+---
+
+## 🧪 Stripe Integration (Test Mode)
+
+This demo currently creates a PaymentIntent and simulates confirmation for simplicity.
+
+### For Production Implementation:
+
+1. **Add Stripe Elements** to `/checkout` for secure card input
+2. **Implement webhook handler** at `/api/stripe/webhook`
+3. **Verify payments** by listening for `payment_intent.succeeded` events
+4. **Mark orders as paid** only after webhook confirmation
+
+### Test Cards
+
+Use these cards in test mode:
+- **Success**: `4242 4242 4242 4242`
+- **Decline**: `4000 0000 0000 0002`
+- Use any future expiry date and any 3-digit CVC
+
+---
+
+## 🐛 Troubleshooting
+
+### macOS Paths with Spaces / iCloud Desktop
+
+If your project is in iCloud or has spaces in the path, use quotes:
+```bash
+cd "$HOME/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Lakshya projects/nu-football-nextjs"
+```
+
+### Accidentally Initialized Git in Parent Folder
+
+If `git status` shows unrelated files, you initialized in the wrong directory:
+```bash
+# Navigate to home directory
+cd ~
+
+# Remove the incorrect .git folder (careful!)
+rm -rf .git
+
+# Navigate to your project
+cd "nu-football-nextjs"
+
+# Re-initialize Git properly
+git init
+echo "node_modules
+.DS_Store
+.env
+*.log
+*.icloud" > .gitignore
+git add .
+git commit -m "Initial commit"
+```
+
+### Stripe Key Missing or Invalid
+
+- Ensure `.env` contains a valid `sk_test_...` key
+- Restart your development server: `npm run dev`
+- Check for extra spaces or quotes in the `.env` file
+
+### Images Not Loading
+
+If you change image hosts, update `next.config.mjs`:
+```javascript
+images: {
+  remotePatterns: [
+    {
+      protocol: 'https',
+      hostname: 'your-new-host.com',
+    },
+  ],
+}
+```
+
+### Database Issues
+
+**Reset database:**
+```bash
+rm prisma/dev.db
 npx prisma migrate dev --name init
 npm run seed
+```
 
-B) Import to Vercel
-Push to GitHub → Vercel → Add New Project → Import
-Add Environment Variables:
-STRIPE_SECRET_KEY = your Stripe test secret (sk_test_…)
-DATABASE_URL = your Postgres connection string
-NEXT_PUBLIC_SITE_URL = https://your-app.vercel.app (update after first deploy if needed)
-Deploy. Visit the live URL. /shop should render seeded products.
-Run npm run seed locally again if you pointed to a fresh production DB and need initial products.
+---
 
+## 📚 Attribution & Resources
 
-🧪 Stripe (Test Mode)
-This demo creates a PaymentIntent and simulates confirmation to keep setup simple.
-For real payments:
-Add Stripe Elements on /checkout
-Implement a webhook (/api/stripe/webhook) and mark orders paid only on payment_intent.succeeded
+This project uses authentic Norwich University imagery and branding:
 
+- [Norwich University Official Site](https://www.norwich.edu)
+- [Norwich Athletics - Football](https://norwichu.edu/sports/football)
+- Sabine Field visuals and athletic photography
+- Brand guidelines referenced in footer
 
-📁 Project Structure
-app/
-  page.tsx                # Home (Hero, Legacy)
-  shop/page.tsx           # Product grid (server component)
-  cart/page.tsx           # Client cart (localStorage)
-  checkout/page.tsx       # Demo checkout
-  order/[id]/page.tsx     # Confirmation page
-  api/
-    checkout/route.ts     # Create PaymentIntent
-    orders/confirm/route.ts# Demo confirmation -> persist order
+**Image Rights**: If usage rights change, images should be replaced or hosted locally.
 
-components/
-  Hero.tsx
-  ProductCard.tsx
+---
 
-lib/
-  prisma.ts
-  stripe.ts
-  types.ts
-  useCart.ts
+## 📄 License
 
-prisma/
-  schema.prisma
-  seed.ts
+This project is for **educational and demonstration purposes only**.
 
-public/
-  favicon.ico
+- Not affiliated with or endorsed by Norwich University
+- Created as a class project prototype
+- Stripe integration uses test mode only
 
-tailwind.config.ts
-next.config.mjs
+---
 
+## 🤝 Contributing
 
-⚙️ Environment
-Copy .env.example → .env:
-STRIPE_SECRET_KEY=sk_test_your_key_here
-DATABASE_URL=file:./dev.db
-NEXT_PUBLIC_SITE_URL=http://localhost:3000
+This is an educational project. If you're a student working on this:
 
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-🧰 Useful Commands
-npm run dev          # start Next.js locally
-npm run build        # production build
-npm start            # run production build
-npx prisma studio    # DB browser at http://localhost:5555
-npm run seed         # seed products
+---
 
+## 📧 Contact
 
-🐛 Troubleshooting
-macOS paths with spaces / iCloud Desktop
-Use quotes or backslashes, e.g.
-cd "$HOME/Library/Mobile Documents/com~apple~CloudDocs/Desktop/Lakshya projects/nu-football-nextjs"
-Accidentally initialized Git in a parent folder
-If git status shows tons of unrelated files, you initialized at ~ or Desktop.
-Remove the parent .git and re-init inside the project:
-cd ~
-rm -rf .git           # careful: only do this if your home dir shouldn't be a repo
-cd "<path to>/nu-football-nextjs"
-git init
-printf "node_modules\n.DS_Store\n.env\n*.log\n*.icloud\n" >> .gitignore
-git add . && git commit -m "Initial commit"
-Stripe key missing/invalid
-Ensure .env has a valid sk_test_... and restart npm run dev.
-Images not loading
-If you swap to different hosts, add them to next.config.mjs → images.remotePatterns.
+For questions about this project, please contact your course instructor or project maintainer.
 
+---
 
-📚 Attribution & Sources
-Norwich University: main site & Sabine Field visuals
-Norwich Athletics: football hub & photo galleries
-Brand Guidelines (PDF) linked in footer
-Replace or host images locally if usage rights change.
-
-
-✅ License
-For educational/demo use. Not affiliated with Norwich University.
-It's a prototype. 
+**Built with ❤️ for Norwich University Alumni**
