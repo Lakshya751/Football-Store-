@@ -1,4 +1,4 @@
-# Norwich University Football Store (work still needs to be done on this)
+# Norwich University Football Store (work still needs to be done on this. This is ongoing project)
 
 > **Educational Demo Project** - A class project showcasing a modern e-commerce storefront for Norwich University Football alumni.
 
