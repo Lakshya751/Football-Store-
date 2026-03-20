@@ -2,7 +2,7 @@
 
 > **Educational Demo Project** - A class project showcasing a modern e-commerce storefront for Norwich University Football alumni.
 
-⚠️ **Disclaimer**: This is an educational demonstration and not an official Norwich University store.
+⚠️ **Disclaimer**: This is an educational demonstration and not an official Norwich University store..
 
 ---
 
